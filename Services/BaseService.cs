@@ -1,4 +1,5 @@
-﻿using Data.EntityFramework;
+﻿using AutoMapper;
+using Data.EntityFramework;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,15 @@ namespace Services
     
     public abstract class BaseService : IBaseService
     {
-        public AppDbContext Context {  get; }
+        public AppDbContext _context {  get; }
+        public readonly IMapper _mapper;
 
-        protected BaseService (AppDbContext context) 
+
+        protected BaseService (AppDbContext context, IMapper mapper) 
         {
-            Context = context;
+            _context = context;
+            _mapper = mapper;
+
         }
     }
 }

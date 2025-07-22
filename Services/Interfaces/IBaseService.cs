@@ -10,6 +10,6 @@ namespace Services.Interfaces
 {
     public interface IBaseService
     {
-        AppDbContext Context { get; }
+        AppDbContext _context { get; }
     }
 }
