@@ -1,0 +1,35 @@
+﻿@page "/products"
+@inject ProductApiClient ProductApiClient
+<h3>Products List</h3>
+
+@if(products == null){
+    <p><em>Loading...</em></p>
+
+}
+else{
+    <table class=" table">
+        <thead>
+            <th>Product ID</th>
+            <th>Name</th>
+            <th> Price</th>
+        </thead>
+        <tbody>
+        @foreach ( var product in products)
+        {
+            <tr>
+                <td> @product.ProductId</td>
+                <td> @product.Name</td>
+                <td> @product.ListPrice</td>
+            </tr>
+                    
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<ProductDto>? products;
+
+    protected override async Task OnInitializedAsync() => products = await ProductApiClient.GetAllProductsAsync();
+
+}

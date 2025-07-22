@@ -9,6 +9,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<Data.EntityFramework.AppDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), b=>b.MigrationsAssembly("Data")));
 
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowBlazorClient", policy =>
+    {
+        policy.WithOrigins("https://localhost:7214")
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
+
+
+
 builder.Services.AddMemoryCache();
 
 builder.Services.AddScoped<IProductService, ProductService>();
@@ -30,6 +44,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowBlazorClient");
 
 app.UseAuthorization();
 
