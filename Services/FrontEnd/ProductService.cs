@@ -8,7 +8,7 @@ using Utility.Shared;
 using AutoMapper;
 
 
-namespace Services
+namespace Services.FrontEnd
 {
     public class ProductService : BaseService, IProductService
     {
@@ -33,7 +33,8 @@ namespace Services
             //return _mapper.Map<List<ProductDto>>(await _context.Product.ProjectTo<ProductDto>(_mapper.ConfigurationProvider).ToListAsync());
 
             //~20 ms VS ~7 ms
-
+            
+            //Fastest Method
                 var products = await _context.Product.Select(p => new ProductDto
                 {
                     ProductId = p.ProductId,

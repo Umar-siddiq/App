@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Services.Interfaces;
-using Services;
+using Services.FrontEnd;
 using Utility;
 
 var builder = WebApplication.CreateBuilder(args);
