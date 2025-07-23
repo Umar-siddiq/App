@@ -6,7 +6,7 @@ namespace Utility.Shared
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
-        public decimal? ListPrice { get; set; }
+        public decimal ListPrice { get; set; }
 
     }
 }
