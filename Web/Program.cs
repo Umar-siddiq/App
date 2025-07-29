@@ -1,3 +1,5 @@
+using Services.FrontEnd;
+using Services.Interfaces;
 using Web.ApiClients;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +8,7 @@ builder.Services.AddHttpClient<IProductApiClient, ProductApiClient>(client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["ApiBaseUrl"]);
 });
+
 
 builder.Services.AddMemoryCache();
 

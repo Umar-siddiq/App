@@ -37,7 +37,7 @@ namespace Tests
                 var result = await service.getAllAsync();
             
                 Assert.Single(result);
-                Assert.Equal("Test", result[0].Name);
+                Assert.Equal("Test", result[0].ProductName);
                 Assert.Equal(999, result[0].ListPrice);
             }
         }

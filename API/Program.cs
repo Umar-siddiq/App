@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Services.Interfaces;
 using Services.FrontEnd;
 using Utility;
+using API.Controllers;
+using Serilog;
+using Serilog.Sinks.MSSqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<Data.EntityFramework.AppDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), b=>b.MigrationsAssembly("Data")));
 
+builder.Services.AddScoped<APILoggingFilter>();
+builder.Services.AddControllers( options =>
+{
+    options.Filters.Add<APILoggingFilter>();
+});
 
 
 builder.Services.AddCors(options =>
@@ -21,12 +29,20 @@ builder.Services.AddCors(options =>
     });
 });
 
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.MSSqlServer(
+        connectionString: builder.Configuration.GetConnectionString("DefaultConnection"),
+        sinkOptions: new MSSqlServerSinkOptions
+        { 
+            TableName = "ApiLogs", AutoCreateSqlTable = true
+        }).Enrich.FromLogContext().CreateLogger();
 
+builder.Host.UseSerilog();   
 
 builder.Services.AddMemoryCache();
 
 builder.Services.AddScoped<IProductService, ProductService>();
-//builder.Services.AddScoped<IBaseService, BaseService>();
 
 builder.Services.AddAutoMapper(cfg => { }, typeof(AutoMapperProfile));
 

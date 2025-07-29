@@ -1,0 +1,30 @@
+﻿@model Utility.Shared.ProductDto
+
+@{
+    ViewData["Title"] = "Create Product";
+}
+
+<h2>Create Product</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="ProductName" class="control-label"></label>
+        <input asp-for="ProductName" class="form-control" />
+        <span asp-validation-for="ProductName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ListPrice" class="control-label"></label>
+        <input asp-for="ListPrice" class="form-control" />
+        <span asp-validation-for="ListPrice" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary" >Create</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
