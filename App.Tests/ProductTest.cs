@@ -6,6 +6,8 @@ using Services.FrontEnd;
 using Data.Entities;
 using AutoMapper;
 using Utility;
+using Utility.Shared;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace Tests
@@ -40,6 +42,20 @@ namespace Tests
                 Assert.Equal("Test", result[0].ProductName);
                 Assert.Equal(999, result[0].ListPrice);
             }
+        }
+
+
+        [Fact]
+        public void ProductDto_Model_IsInvalid_WhenNameIsNull() 
+        {
+            var model = new ProductDto { ListPrice = 100};
+
+            var context = new ValidationContext(model, null, null);
+            var results = new List<ValidationResult>();
+            var isValid = Validator.TryValidateObject(model, context, results, true);
+
+            Assert.False(isValid);
+            Assert.Contains(results, v => v.MemberNames.Contains("ProductNames"));
         }
     }
 }
