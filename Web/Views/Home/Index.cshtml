@@ -33,13 +33,13 @@ else{
                 <td>@product.ProductId</td>
                 <td>@product.ProductName</td>
                 <td>@product.ListPrice.ToString("C")</td>
-                <div class="btn-group-sm"></div>
                 <td>
-                    <a asp-action="Edit"  asp-route-id="@product.ProductId"  class=" btn btn-warning"> Edit</a> 
-                    <a asp-action="Delete"  asp-route-id="@product.ProductId"  class="btn btn-danger"> Delete </a>
-                </td>
+                    <div class="btn-group-sm"></div>
+                        <a asp-action="Edit"  asp-route-id="@product.ProductId"  class=" btn btn-warning"> Edit</a> 
+                        <a asp-action="Delete"  asp-route-id="@product.ProductId"  class="btn btn-danger"> Delete </a>
                     <div/>
-                </tr>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
